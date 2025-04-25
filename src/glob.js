@@ -20,7 +20,7 @@ async function globArray(pattern, { cwd }) {
  * Returns an AsyncIterator of those (recursive) subdirectories that match the glob pattern.
  * @param pattern - The glob pattern to match against.
  * @param cwd - The current working directory to start the search from.
- * @returns {Promise<string[]>} - An array of relative paths that match the glob pattern.
+ * @returns {AsyncIterator<string>} - An array of relative paths that match the glob pattern.
  */
 async function* glob(pattern, { cwd } = { cwd: process.cwd() }) {
   yield* (await globArray(pattern, { cwd }));
