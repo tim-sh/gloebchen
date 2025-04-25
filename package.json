@@ -4,5 +4,6 @@
   "type": "commonjs",
   "scripts": {
     "test": "node --test"
-  }
+  },
+  "main": "src/glob.js"
 }
