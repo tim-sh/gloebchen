@@ -4,15 +4,15 @@ const { readdir } = require('node:fs').promises;
 
 async function subdirs(dir) {
   if (!existsSync(dir)) return [];
-  const dirents = (await readdir(dir, { withFileTypes: true }))
-      .filter(entry => entry.isDirectory() && !entry.name.startsWith('.'));
-  const all = await Promise.all(
-      dirents.map(async entry => {
-        const fullPath = join(dir, entry.name);
-        return [fullPath, ...(await subdirs(fullPath))];
+  const children = (await readdir(dir, { withFileTypes: true }))
+      .filter(child => child.isDirectory() && !child.name.startsWith('.'));
+  return (await Promise.all(
+      children.map(async child => {
+        const childPath = join(dir, child.name);
+        const descendants = await subdirs(childPath);
+        return [childPath, ...descendants];
       })
-  );
-  return all.flat();
+  )).flat();
 }
 
 module.exports = { subdirs };

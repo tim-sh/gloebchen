@@ -11,9 +11,7 @@ const { globToRegex } = require('./glob-to-regex');
  */
 async function glob(pattern, { cwd } = { cwd: process.cwd() }) {
   const regex = globToRegex(pattern);
-  const allPaths = await subdirs(cwd);
-
-  return allPaths
+  return (await subdirs(cwd))
       .map(fullPath => path.relative(cwd, fullPath))
       .filter(relativePath => regex.test(relativePath));
 }
