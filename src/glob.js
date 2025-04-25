@@ -1,23 +1,21 @@
-const fs = require('fs');
 const path = require('path');
-const { subdirs } = require('./subdirs');
 
-async function glob(pattern, cwd = process.cwd()) {
+const { subdirs } = require('./subdirs');
+const { globToRegex } = require('./glob-to-regex');
+
+/**
+ * Returns only those subdirectories, recursively, that match the glob pattern.
+ * @param pattern - The glob pattern to match against.
+ * @param cwd - The current working directory to start the search from.
+ * @returns {Promise<string[]>} - An array of relative paths that match the glob pattern.
+ */
+async function glob(pattern, { cwd } = { cwd: process.cwd() }) {
   const regex = globToRegex(pattern);
   const allPaths = await subdirs(cwd);
 
   return allPaths
       .map(fullPath => path.relative(cwd, fullPath))
-      .filter(relativePath => regex.test(relativePath))
-      .map(relativePath => path.join(cwd, relativePath));
-}
-
-function globToRegex(glob) {
-  glob = glob.replaceAll('**', '|')
-      .replaceAll('*', '[^/]*')
-      .replaceAll('|', '.*');
-
-  return new RegExp(`^${glob}$`);
+      .filter(relativePath => regex.test(relativePath));
 }
 
 module.exports = { glob };
