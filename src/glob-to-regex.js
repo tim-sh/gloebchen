@@ -9,6 +9,7 @@ function globToRegex(glob) {
   glob = glob
       .replace(/^\.\//, '')
       .replaceAll('**', '|')
+      .replaceAll(/\[!([^\]]+)]/g, '[^$1]')
       .replaceAll('?', '[^/]')
       .replaceAll('*', '[^/]*')
       .replaceAll('|', '.*');

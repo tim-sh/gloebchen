@@ -91,4 +91,16 @@ describe('glob-to-regex', () => {
       assert.strictEqual(regex.toString(), expected.toString());
     });
   });
+
+  it('pattern with negative char set', async () => {
+    const testCases = [
+      { glob: 'c/A/x[!ab]z/A', expected: /^c\/A\/x[^ab]z\/A$/ },
+      { glob: 'c/[!B-Z]/**', expected: /^c\/[^B-Z]\/.*$/ }
+    ];
+
+    testCases.forEach(({ glob, expected }) => {
+      const regex = globToRegex(glob);
+      assert.strictEqual(regex.toString(), expected.toString());
+    });
+  });
 });
