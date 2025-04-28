@@ -67,11 +67,23 @@ describe('glob-to-regex', () => {
     });
   });
 
-  it('patterns with question mark', async () => {
+  it('pattern with question mark', async () => {
     const testCases = [
       { glob: 'c/A/x?z/A', expected: /^c\/A\/x[^/]z\/A$/ },
       { glob: 'c/A/x?z/*', expected: /^c\/A\/x[^/]z\/[^/]*$/ },
       { glob: 'c/?/**', expected: /^c\/[^/]\/.*$/ }
+    ];
+
+    testCases.forEach(({ glob, expected }) => {
+      const regex = globToRegex(glob);
+      assert.strictEqual(regex.toString(), expected.toString());
+    });
+  });
+
+  it('pattern with char set', async () => {
+    const testCases = [
+      { glob: 'c/A/x[yab]z/A', expected: /^c\/A\/x[yab]z\/A$/ },
+      { glob: 'c/[A-Z]/**', expected: /^c\/[A-Z]\/.*$/ }
     ];
 
     testCases.forEach(({ glob, expected }) => {

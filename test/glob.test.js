@@ -37,4 +37,13 @@ describe('glob', () => {
     assert.deepEqual(result, expected);
   });
 
+  it('should match dirs with char set', async () => {
+    const result = await globArray('c/A/x[yab]z/*', { cwd: fixturesDir });
+    const expected = [
+      'c/A/xyz/A',
+      'c/A/xyz/B'
+    ];
+    assert.deepEqual(result, expected);
+  });
+
 });
