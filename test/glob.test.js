@@ -23,7 +23,16 @@ describe('glob', () => {
       'a/A',
       'b/A',
       'c/A',
-      'c/A/x/A'
+      'c/A/xyz/A'
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it('should match dirs with question mark', async () => {
+    const result = await globArray('c/?/x?z/*', { cwd: fixturesDir });
+    const expected = [
+      'c/A/xyz/A',
+      'c/A/xyz/B'
     ];
     assert.deepEqual(result, expected);
   });

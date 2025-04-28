@@ -18,9 +18,9 @@ describe('subdirs', () => {
       join(fixturesDir, 'b', 'B'),
       join(fixturesDir, 'c'),
       join(fixturesDir, 'c', 'A'),
-      join(fixturesDir, 'c', 'A', 'x'),
-      join(fixturesDir, 'c', 'A', 'x', 'A'),
-      join(fixturesDir, 'c', 'A', 'x', 'B'),
+      join(fixturesDir, 'c', 'A', 'xyz'),
+      join(fixturesDir, 'c', 'A', 'xyz', 'A'),
+      join(fixturesDir, 'c', 'A', 'xyz', 'B'),
     ];
     assert.deepEqual(result, expected);
   });
