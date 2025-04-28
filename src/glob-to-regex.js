@@ -1,7 +1,7 @@
 /**
  * Converts a glob pattern to a regular expression.
- * Supports single asterisk (`*`) and double asterisk (`**`) wildcards.
- * Patterns starting with `./` are normalized.
+ * Supports the following wildcards: `? * ** [...] [!...]`.
+ * Patterns such as `./foo` are normalized to `foo`.
  * @param glob - The glob pattern to convert.
  * @returns {RegExp} - The regular expression that matches the glob pattern.
  */
